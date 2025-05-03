@@ -1,0 +1,26 @@
+%{
+#include <stdio.h>
+%}
+
+%%
+[0-9]+              { printf("Number: %s\n", yytext); }
+[a-zA-Z_][a-zA-Z0-9_]* { printf("Word: %s\n", yytext); }
+[ \t\n]+            ;   // Ignore whitespace
+.                   ;   // Ignore other characters
+%%
+
+int main() {
+    yylex();
+    return 0;
+}
+
+int yywrap() {
+    return 1;
+}
+
+OUTPUT:
+hello 123 world_1 456
+Word: hello
+Number: 123
+Word: world_1
+Number: 456
