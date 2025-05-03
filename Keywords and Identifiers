@@ -1,0 +1,28 @@
+%{
+#include <stdio.h>
+%}
+
+%%
+int     { printf("Keyword: %s\n", yytext); }
+float   { printf("Keyword: %s\n", yytext); }
+[a-zA-Z_][a-zA-Z0-9_]*   { printf("Identifier: %s\n", yytext); }
+[ \t\n]+ ;  // Skip spaces, tabs, newlines
+. ;         // Ignore any other character
+%%
+
+int main() {
+    yylex();
+    return 0;
+}
+
+int yywrap() {
+    return 1;
+}
+
+OUTPUT:
+int main float number total
+Keyword: int
+Identifier: main
+Keyword: float
+Identifier: number
+Identifier: total
