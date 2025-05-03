@@ -1,0 +1,25 @@
+%{
+#include <stdio.h>
+%}
+
+%%
+[aeiouAEIOU][a-zA-Z0-9_]*   { printf("Starts with vowel: %s\n", yytext); }
+[a-zA-Z_][a-zA-Z0-9_]*      ; // Other words: ignore
+[ \t\n]+                    ; // Ignore whitespace
+.                           ; // Ignore other characters
+%%
+
+int main() {
+    yylex();
+    return 0;
+}
+
+int yywrap() {
+    return 1;
+}
+
+OUTPUT:
+apple orange ball Elephant tiger
+Starts with vowel: apple
+Starts with vowel: orange
+Starts with vowel: Elephant
